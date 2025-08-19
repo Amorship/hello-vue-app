@@ -1,9 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; url=/hello-vue-app/" />
+    <meta charset="utf-8" />
+    <title>Redirecting…</title>
+    <script>
+      (function () {
+        // 你的 repo base（跟 vite.config.ts 的 base 一致，結尾不要漏斜線）
+        var BASE = '/hello-vue-app/';
+
+        var l = window.location;
+        // 只處理在 repo 底下的路徑
+        if (!l.pathname.startsWith(BASE)) return;
+
+        // 取出 base 後面的 path
+        var path = l.pathname.slice(BASE.length);
+        var search = l.search ? l.search.slice(1) : ''; // 去掉 ?
+        var hash = l.hash || '';
+
+        // 轉去 index，但把原本 path 放到 ?/ 後面，以便 index 還原
+        var newUrl = BASE + '?/' + path + (search ? '&' + search : '') + hash;
+
+        // 用 replace 不留歷史紀錄
+        l.replace(newUrl);
+      })();
+    </script>
   </head>
-  <body>
-    <p>Redirecting...</p>
-  </body>
+  <body>Redirecting…</body>
 </html>
